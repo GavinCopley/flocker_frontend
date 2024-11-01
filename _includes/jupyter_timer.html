@@ -24,7 +24,7 @@
     }
 
     #timeText {
-        font-size: 18px;
+        font-size: 20px; /* Increased font size */
         text-align: center;
         position: absolute;
         top: 50%;
@@ -32,6 +32,7 @@
         transform: translate(-50%, -50%);
         color: white; /* Text color inside circle */
         text-shadow: 0 0 5px purple, 0 0 10px purple; /* Glow effect for text */
+        padding: 10px; /* Padding to ensure snug fit */
     }
 
     /* Glow effect for the progress circle */
@@ -48,7 +49,7 @@
     const schoolEnd = new Date();
     schoolEnd.setHours(15, 45, 0, 0); // 3:45 PM
 
-    const radius = 120; // Increased radius for a larger circle
+    const radius = 150; // Increased radius for a larger circle
     const circumference = 2 * Math.PI * radius;
 
     // Create an SVG container
@@ -63,7 +64,7 @@
     circle.setAttribute("cy", radius + 20); // Center y
     circle.setAttribute("r", radius);
     circle.setAttribute("stroke", "lightgray");
-    circle.setAttribute("stroke-width", "10");
+    circle.setAttribute("stroke-width", "15"); // Thicker background circle
     circle.setAttribute("fill", "none");
 
     // Create a glowing progress circle
@@ -72,7 +73,7 @@
     progressCircle.setAttribute("cy", radius + 20);
     progressCircle.setAttribute("r", radius);
     progressCircle.setAttribute("stroke", "purple"); // Progress color
-    progressCircle.setAttribute("stroke-width", "10");
+    progressCircle.setAttribute("stroke-width", "15"); // Thicker progress circle
     progressCircle.setAttribute("fill", "none");
     progressCircle.setAttribute("stroke-dasharray", circumference);
     progressCircle.setAttribute("stroke-dashoffset", circumference); // Start as filled
