@@ -7,7 +7,9 @@
         align-items: center;
         flex-direction: column;
         height: 100vh; /* Full height */
-        position: relative;
+        background-color: black; /* Background color */
+        color: white; /* Text color */
+        font-family: Arial, sans-serif; /* Font style */
     }
 
     svg {
@@ -27,6 +29,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        color: white; /* Text color inside circle */
     }
 </style>
 
@@ -61,7 +64,7 @@
     progressCircle.setAttribute("cx", radius + 20);
     progressCircle.setAttribute("cy", radius + 20);
     progressCircle.setAttribute("r", radius);
-    progressCircle.setAttribute("stroke", "blue");
+    progressCircle.setAttribute("stroke", "purple"); // Progress color
     progressCircle.setAttribute("stroke-width", "10");
     progressCircle.setAttribute("fill", "none");
     progressCircle.setAttribute("stroke-dasharray", circumference);
@@ -108,7 +111,7 @@
         if (now < schoolStart) {
             message = `School starts in ${Math.floor((schoolStart - now) / 60000)} minutes.`;
         } else if (now < schoolEnd) {
-            message = `Hours left of school: ${Math.ceil((schoolEnd - now) / 3600000)} hour(s).`;
+            message = `Hours left of school: ${Math.ceil((schoolEnd - now) / 60000 / 60)} hour(s).`; // Fixed calculation
         } else {
             message = 'School is over for the day.';
         }
