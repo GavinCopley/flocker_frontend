@@ -1,0 +1,77 @@
+<div id="progressContainer"></div>
+
+<script>
+    // Set the school start and end times
+const schoolStart = new Date();
+schoolStart.setHours(8, 35, 0, 0); // 8:35 AM
+
+const schoolEnd = new Date();
+schoolEnd.setHours(15, 45, 0, 0); // 3:45 PM
+
+const radius = 50; // Radius of the circle
+const circumference = 2 * Math.PI * radius;
+
+// Create an SVG circle
+const svgNamespace = "http://www.w3.org/2000/svg";
+const circle = document.createElementNS(svgNamespace, "circle");
+circle.setAttribute("cx", radius + 10); // Center x
+circle.setAttribute("cy", radius + 10); // Center y
+circle.setAttribute("r", radius);
+circle.setAttribute("stroke", "lightgray");
+circle.setAttribute("stroke-width", "10");
+circle.setAttribute("fill", "none");
+
+// Create a progress circle
+const progressCircle = document.createElementNS(svgNamespace, "circle");
+progressCircle.setAttribute("cx", radius + 10);
+progressCircle.setAttribute("cy", radius + 10);
+progressCircle.setAttribute("r", radius);
+progressCircle.setAttribute("stroke", "blue");
+progressCircle.setAttribute("stroke-width", "10");
+progressCircle.setAttribute("fill", "none");
+progressCircle.setAttribute("stroke-dasharray", circumference);
+progressCircle.setAttribute("stroke-dashoffset", circumference); // Start as filled
+
+// Append circles to an SVG container
+const svg = document.createElementNS(svgNamespace, "svg");
+svg.setAttribute("width", radius * 2 + 20);
+svg.setAttribute("height", radius * 2 + 20);
+svg.appendChild(circle);
+svg.appendChild(progressCircle);
+
+// Append the SVG to an existing element with ID 'progressContainer'
+document.getElementById('progressContainer').appendChild(svg);
+
+// Function to update the progress circle
+function updateProgress() {
+    const now = new Date();
+    const totalSchoolTime = schoolEnd - schoolStart;
+    let elapsedSchoolTime = 0;
+
+    if (now >= schoolStart && now < schoolEnd) {
+        elapsedSchoolTime = now - schoolStart;
+    } else if (now >= schoolEnd) {
+        elapsedSchoolTime = totalSchoolTime;
+    }
+
+    const progress = (elapsedSchoolTime / totalSchoolTime) * circumference;
+    progressCircle.setAttribute("stroke-dashoffset", circumference - progress);
+
+    // Update the timer message
+    let message;
+    if (now < schoolStart) {
+        message = `School starts in ${Math.floor((schoolStart - now) / 60000)} minutes.`;
+    } else if (now < schoolEnd) {
+        message = `School ends in ${Math.floor((schoolEnd - now) / 60000)} minutes.`;
+    } else {
+        message = 'School is over for the day.';
+    }
+
+    console.log(message); // Display the message
+}
+
+// Initial call and set interval to update progress every minute
+updateProgress();
+setInterval(updateProgress, 60000);
+
+</script>
