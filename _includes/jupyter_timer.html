@@ -10,6 +10,7 @@
         background-color: black; /* Background color */
         color: white; /* Text color */
         font-family: Arial, sans-serif; /* Font style */
+        position: relative;
     }
 
     svg {
@@ -30,6 +31,12 @@
         left: 50%;
         transform: translate(-50%, -50%);
         color: white; /* Text color inside circle */
+        text-shadow: 0 0 5px purple, 0 0 10px purple; /* Glow effect for text */
+    }
+
+    /* Glow effect for the progress circle */
+    .glow {
+        filter: drop-shadow(0 0 5px purple) drop-shadow(0 0 10px purple);
     }
 </style>
 
@@ -59,7 +66,7 @@
     circle.setAttribute("stroke-width", "10");
     circle.setAttribute("fill", "none");
 
-    // Create a progress circle
+    // Create a glowing progress circle
     const progressCircle = document.createElementNS(svgNamespace, "circle");
     progressCircle.setAttribute("cx", radius + 20);
     progressCircle.setAttribute("cy", radius + 20);
@@ -69,6 +76,7 @@
     progressCircle.setAttribute("fill", "none");
     progressCircle.setAttribute("stroke-dasharray", circumference);
     progressCircle.setAttribute("stroke-dashoffset", circumference); // Start as filled
+    progressCircle.classList.add("glow"); // Add glow class
 
     // Append circles to the SVG container
     svg.appendChild(circle);
@@ -111,7 +119,7 @@
         if (now < schoolStart) {
             message = `School starts in ${Math.floor((schoolStart - now) / 60000)} minutes.`;
         } else if (now < schoolEnd) {
-            message = `Hours left of school: ${Math.ceil((schoolEnd - now) / 60000 / 60)} hour(s).`; // Fixed calculation
+            message = `Hours left of school: ${Math.ceil((schoolEnd - now) / 60000 / 60)} hour(s).`;
         } else {
             message = 'School is over for the day.';
         }
